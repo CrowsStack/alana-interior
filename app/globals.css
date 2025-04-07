@@ -1,0 +1,536 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --radius: 0.5rem;
+
+  --gold: #d4af37;
+  --gold-light: #e5c76b;
+  --gold-dark: #b69121;
+}
+
+.bodycarder {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f0f0f0; /* Optional page background */
+}
+
+
+.wordscardContainer {
+    /* The container doesn't need a fixed height if the body scrolls */
+    /* overflow: hidden; /* Can help contain margins if needed */
+}
+
+/* Wrapper for each card - provides the necessary scroll height */
+.card-wrapper {
+    /* Height determines how much you scroll before the next card starts overlapping */
+    /* 100vh means you scroll a full viewport height for each card section */
+    height: 100vh;
+    position: relative; /* Establishes a positioning context if needed */
+}
+
+.wordscard {
+    /* --- Sticking Behavior --- */
+    position: sticky;
+    /* Where the card sticks relative to the viewport top */
+    /* Use a value > 0 to leave some space above the card */
+    top: 10vh;
+
+    /* --- Sizing (Responsive) --- */
+    width: 80%; /* Percentage width */
+    max-width: 800px; /* Maximum width for larger screens */
+    min-height: 60vh; /* Minimum height relative to viewport */
+
+    /* --- Centering & Layout --- */
+    margin: 0 auto; /* Center horizontally */
+    display: flex; /* Use flexbox for easy content centering */
+    align-items: center;
+    justify-content: center;
+
+    /* --- Styling --- */
+    font-size: clamp(2rem, 5vw, 4rem); /* Responsive font size */
+    font-weight: bold;
+    color: #333;
+    background-color: white; /* Default background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Softer shadow */
+
+    /* --- Stacking --- */
+    /* z-index is usually not needed as DOM order handles stacking */
+    /* The last card in the HTML will be visually on top when overlapped */
+
+    /* Ensure the card is visually distinct from the wrapper */
+    /* (Handled by background-color and box-shadow) */
+}
+
+/* --- Optional: Add some visual flair --- */
+
+/* Add a bit more space before the first card if desired */
+.card-wrapper:first-child {
+    /* padding-top: 5vh; */ /* Adjust if needed */
+}
+
+/* You can use nth-child selectors for styling if you prefer over inline styles */
+/*
+.card-wrapper:nth-child(1) .wordscard { background-color: lightblue; }
+.card-wrapper:nth-child(2) .wordscard { background-color: lightcoral; }
+.card-wrapper:nth-child(3) .wordscard { background-color: lightgreen; }
+.card-wrapper:nth-child(4) .wordscard { background-color: lightgoldenrodyellow; }
+*/
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-inter antialiased overflow-x-hidden;
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-space font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 md:px-6 lg:px-8;
+  }
+
+  .heading-xl {
+    @apply text-4xl md:text-5xl lg:text-7xl font-bold leading-tight;
+  }
+
+  .heading-lg {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  .heading-md {
+    @apply text-2xl md:text-3xl font-bold leading-tight;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium transition-colors border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-medium transition-colors border border-input hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-playfair font-bold mb-6;
+  }
+
+  .section-subtitle {
+    @apply text-xl md:text-2xl font-montserrat font-light text-gray-600 max-w-2xl mx-auto mb-12;
+  }
+}
+
+/* Maze Animation Styles */
+.maze-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.maze-line {
+  position: absolute;
+  background-color: var(--gold);
+  opacity: 0.3;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+  border-radius: 50%;
+}
+
+/* Scroll Carousel Styles */
+.scroll-section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.scroll-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Utility Classes */
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+.text-gold {
+  color: var(--gold);
+}
+
+.bg-gold {
+  background-color: var(--gold);
+}
+
+.border-gold {
+  border-color: var(--gold);
+}
+
+/* Prevent scroll on body when carousel is active */
+.scroll-lock {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Scroll animations */
+.reveal-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.reveal-text .char {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.reveal-text.in-view .char {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Staggered animation for characters */
+.reveal-text .char:nth-child(1) {
+  transition-delay: 0.02s;
+}
+.reveal-text .char:nth-child(2) {
+  transition-delay: 0.04s;
+}
+.reveal-text .char:nth-child(3) {
+  transition-delay: 0.06s;
+}
+.reveal-text .char:nth-child(4) {
+  transition-delay: 0.08s;
+}
+.reveal-text .char:nth-child(5) {
+  transition-delay: 0.10s;
+}
+.reveal-text .char:nth-child(6) {
+  transition-delay: 0.12s;
+}
+.reveal-text .char:nth-child(7) {
+  transition-delay: 0.14s;
+}
+.reveal-text .char:nth-child(8) {
+  transition-delay: 0.16s;
+}
+.reveal-text .char:nth-child(9) {
+  transition-delay: 0.18s;
+}
+.reveal-text .char:nth-child(10) {
+  transition-delay: 0.20s;
+}
+.reveal-text .char:nth-child(11) {
+  transition-delay: 0.22s;
+}
+.reveal-text .char:nth-child(12) {
+  transition-delay: 0.24s;
+}
+.reveal-text .char:nth-child(13) {
+  transition-delay: 0.26s;
+}
+.reveal-text .char:nth-child(14) {
+  transition-delay: 0.28s;
+}
+.reveal-text .char:nth-child(15) {
+  transition-delay: 0.30s;
+}
+.reveal-text .char:nth-child(16) {
+  transition-delay: 0.32s;
+}
+.reveal-text .char:nth-child(17) {
+  transition-delay: 0.34s;
+}
+.reveal-text .char:nth-child(18) {
+  transition-delay: 0.36s;
+}
+.reveal-text .char:nth-child(19) {
+  transition-delay: 0.38s;
+}
+.reveal-text .char:nth-child(20) {
+  transition-delay: 0.40s;
+}
+
+/* Grid layout */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Horizontal scroll section */
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.horizontal-scroll-item {
+  display: inline-block;
+  vertical-align: top;
+  white-space: normal;
+}
+
+/* Vertical line pattern */
+.vertical-lines {
+  position: relative;
+  overflow: hidden;
+}
+
+.vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .scroll-section {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .scroll-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scroll-item {
+    position: relative;
+    min-height: 100vh;
+  }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .maze-line {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .scroll-container,
+  .scroll-item {
+    transition: none !important;
+  }
+
+  .reveal-text .char {
+    transition: none !important;
+  }
+
+  .horizontal-scroll {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Scroll-triggered animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Circle elements */
+.circle {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.circle-lg {
+  width: 400px;
+  height: 400px;
+}
+
+.circle-md {
+  width: 200px;
+  height: 200px;
+}
+
+.circle-sm {
+  width: 100px;
+  height: 100px;
+}
+
+/* Service icon circles */
+.service-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-circle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-circle svg {
+  z-index: 1;
+  color: white;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
